@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: scd-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    restart: unless-stopped
+
+  app:
+    build: .
+    container_name: scd-app
+    stdin_open: true  # Keep STDIN open
+    tty: true         # Allocate pseudo-TTY
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017/vaultdb
+      - NODE_ENV=production
+    volumes:
+      - app_data:/app/data
+      - app_backups:/app/backups
+    depends_on:
+      - mongodb
+    restart: unless-stopped
+
+volumes:
+  mongodb_data:
+  app_data:
+  app_backups:
