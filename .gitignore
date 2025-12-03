@@ -1,0 +1,7 @@
+node_modules/
+.env
+*.log
+backups/
+export.txt
+data/vault.json
+*.backup

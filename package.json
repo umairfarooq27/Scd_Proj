@@ -1,0 +1,10 @@
+{
+  "name": "scdproject25",
+  "version": "1.0.0",
+  "description": "NodeVault with enhanced features",
+  "main": "main.js",
+  "dependencies": {
+    "dotenv": "^16.6.1",
+    "mongoose": "^7.8.7"
+  }
+}

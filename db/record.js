@@ -7,4 +7,9 @@ function generateId() {
   return Date.now();
 }
 
-module.exports = { validateRecord, generateId };
+// Helper to format date
+function formatDate(date) {
+  return date ? new Date(date).toLocaleString() : 'N/A';
+}
+
+module.exports = { validateRecord, generateId, formatDate };
