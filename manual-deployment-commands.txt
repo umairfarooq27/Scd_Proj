@@ -1,0 +1,23 @@
+# Network creation
+docker network create --driver bridge scd-vault-network
+
+# Volume creation
+docker volume create scd-mongodb-data
+docker volume create scd-app-data  
+docker volume create scd-app-backups
+
+# MongoDB deployment
+docker run -d --name manual-mongodb --network scd-vault-network \
+  -p 27017:27017 -v scd-mongodb-data:/data/db mongo:latest
+
+# App deployment
+docker run -it --name manual-app --network scd-vault-network \
+  -p 3000:3000 -e MONGODB_URI=mongodb://manual-mongodb:27017/vaultdb \
+  -v scd-app-data:/app/data -v scd-app-backups:/app/backups \
+  scd-app-manual:v1
+
+# Verification commands
+docker ps
+docker network inspect scd-vault-network
+docker volume inspect scd-app-data
+docker exec manual-app ping manual-mongodb

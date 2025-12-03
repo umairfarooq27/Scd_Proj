@@ -5,3 +5,8 @@ backups/
 export.txt
 data/vault.json
 *.backup
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
